@@ -13,3 +13,8 @@ Link of website: `http://localhost:8085/`
 Link of website on Nginx server: `http://localhost:8081/`
 
 Command to disable containers: `docker-compose down`
+
+<h1>Future Considerations</h1>
+
+- Automate the deployment using GitHub Actions
+- Add UI Testing with Selenium Grid
