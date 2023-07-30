@@ -14,6 +14,12 @@ Link of website on Nginx server: `http://localhost:8081/`
 
 Command to disable containers: `docker-compose down`
 
+<h1>Health Check</h1>
+
+Health Check is added to the wordpress image to make sure that the container is in a healthy state.
+
+Run the `docker-compose ps -a` command to check for each container's health.
+
 <h1>Future Considerations</h1>
 
 - Automate the deployment using GitHub Actions
