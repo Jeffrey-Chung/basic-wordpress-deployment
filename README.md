@@ -1,4 +1,4 @@
-# Basic-Wordpress-Deployment
+# basic-wordpress-deployment
 
 <h1>Description</h1>
 
