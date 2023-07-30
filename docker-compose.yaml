@@ -22,7 +22,7 @@ services:
     environment:
       MYSQL_DATABASE: wordpress_db
       MYSQL_USER: wordpress_jeffrey
-      MYSQL_RANDOM_PASSWORD: '1'
+      MYSQL_PASSWORD: /run/secrets/db_password
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     secrets:
       - db_password
