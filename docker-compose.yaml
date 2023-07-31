@@ -1,8 +1,10 @@
 version: "3.7"
 
 services:
+# image for hosting the frontend (wordpress)
   wordpress:
     image: wordpress:latest
+    container_name: frontend
     ports:
       - 8085:80
     depends_on:
@@ -22,8 +24,10 @@ services:
       timeout: "5s"
       retries: 3
 
+# image for the mysql database
   mysql:
     image: mysql:latest
+    container_name: mysqldb
     environment:
       MYSQL_DATABASE: wordpress_db
       MYSQL_USER: wordpress_jeffrey
@@ -35,6 +39,7 @@ services:
       - ./database/data:/var/lib/mysql
       - ./database/initdb.d:/docker-entrypoint-initdb.d
 
+# initialise secret for mysql password
 secrets:
   db_password:
     file: db_password.txt
