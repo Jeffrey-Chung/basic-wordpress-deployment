@@ -1,0 +1,28 @@
+name: Wordpress Deploy via GH Actions
+
+on:
+  push:
+    branches:
+        - main
+    
+jobs:
+  wordpress-deploy:
+    name: 'wordpress-deploy-gh-actions'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v3
+      
+      - name: Create and Add Wordpress DB Password
+        run: |
+          touch db_password.txt
+          echo $RANDOM > db_password.txt
+      
+      - name: Run Docker Compose
+        run: sudo docker-compose up -d
+     
+      - name: Shut down Docker Compose
+        run: sudo docker-compose down
+
+
+     
