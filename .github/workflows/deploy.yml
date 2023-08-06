@@ -15,10 +15,8 @@ jobs:
       
       - name: Create and Add Wordpress DB Password
         run: |
-          pwd
           touch db_password.txt
           echo $RANDOM > db_password.txt
-          ls
       
       - name: Run Docker Compose
         run: sudo docker-compose up -d
