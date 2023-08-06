@@ -22,7 +22,7 @@ jobs:
         run: sudo docker-compose up -d
       
       - name: Check if link is working
-        run: wget http://localhost:8085/
+        run: wget http://localhost:8085/wp-admin/install.php
      
       - name: Shut down Docker Compose
         run: sudo docker-compose down
