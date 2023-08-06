@@ -20,6 +20,9 @@ jobs:
       
       - name: Run Docker Compose
         run: sudo docker-compose up -d
+      
+      - name: Check if link is working
+        run: curl http://localhost:8085/
      
       - name: Shut down Docker Compose
         run: sudo docker-compose down
