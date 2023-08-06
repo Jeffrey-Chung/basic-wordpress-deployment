@@ -46,6 +46,4 @@ secrets:
 
 volumes:
   wordpress:
-    driver: local
   mysql:
-    driver: local
