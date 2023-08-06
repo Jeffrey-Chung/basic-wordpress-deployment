@@ -15,6 +15,7 @@ jobs:
       
       - name: Create and Add Wordpress DB Password
         run: |
+          cd wordpress-deploy/
           touch db_password.txt
           echo $RANDOM > db_password.txt
       
@@ -22,7 +23,7 @@ jobs:
         run: sudo docker-compose up -d
       
       - name: Check if link is working
-        run: curl http://localhost:8085/
+        run: wget http://localhost:8085/
      
       - name: Shut down Docker Compose
         run: sudo docker-compose down
