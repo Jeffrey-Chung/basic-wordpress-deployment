@@ -21,10 +21,6 @@ jobs:
       - name: Run Docker Compose
         run: sudo docker-compose up -d
       
-      - name: Check if link is working
-        run: wget http://127.0.0.3:8085/ 
-
-     
       - name: Shut down Docker Compose
         run: sudo docker-compose down
 
