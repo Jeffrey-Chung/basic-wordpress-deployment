@@ -22,7 +22,7 @@ jobs:
         run: sudo docker-compose up -d
       
       - name: Check if link is working
-        run: wget http://127.0.0.1:8085/ --auth-no-challenge --force-directories
+        run: wget http://127.0.0.3:8085/ 
 
      
       - name: Shut down Docker Compose
