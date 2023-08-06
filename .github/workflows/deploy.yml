@@ -15,7 +15,6 @@ jobs:
       
       - name: Create and Add Wordpress DB Password
         run: |
-          cd wordpress-deploy/
           touch db_password.txt
           echo $RANDOM > db_password.txt
       
