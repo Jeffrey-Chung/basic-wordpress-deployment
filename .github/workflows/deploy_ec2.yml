@@ -22,7 +22,7 @@ jobs:
     if: inputs.action_type == 'build'
     steps:
       - name: Check out this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -64,7 +64,7 @@ jobs:
     if: inputs.action_type == 'destroy'
     steps:
       - name: Check out this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
