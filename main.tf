@@ -1,5 +1,5 @@
 # Security Group to allow traffic to and from the Internet (i.e. install and download packages)
-resource “aws_security_group” “wordpress-security-group” {
+resource "aws_security_group" "wordpress-security-group" {
     name = "wordpress-security-group"
     # Inbound Rules
     ingress{
@@ -27,13 +27,13 @@ resource “aws_security_group” “wordpress-security-group” {
 }
 
 # Assign public IP via Elastic IP to access the site
-resource “aws_eip” “wp-public-ip” {
+resource "aws_eip" "wp-public-ip" {
     instance = aws_instance.wordpress-instance.id
     vpc = true
 }
 
 # Start an EC2 Instance to host the site
-resource “aws_instance” “wordpress-instance” {
+resource "aws_instance" "wordpress-instance" {
     ami = "ami-010aff33ed5991201"
     instance_type = "t2.micro"
     key_name = "wp-key"
@@ -41,7 +41,7 @@ resource “aws_instance” “wordpress-instance” {
 }
 
 # Outputs the IP to access the site
-output “WebServerIP” {
+output "WebServerIP" {
     value = aws_instance.wordpress-instance.public_ip
     description = "Web Server IP Address"
 }
