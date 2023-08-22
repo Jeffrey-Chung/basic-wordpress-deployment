@@ -1,4 +1,4 @@
-name:  Deployment - terraform apply
+name: Deployment - terraform apply
 
 on:
   workflow_dispatch:
@@ -16,8 +16,8 @@ permissions:
    contents: read
 
 jobs:
-  tf-aws-cloud-resume-challenge-deploy:
-    name: 'tf-aws-cloud-resume-challenge-deploy'
+  tf-wordpress-deploy:
+    name: 'tf-wordpress-deploy'
     runs-on: ubuntu-latest
     if: inputs.action_type == 'build'
     steps:
@@ -29,6 +29,7 @@ jobs:
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
+      
       - name: Create Key Pair
         uses: aws ec2 create-key-pair — key-name wp-key
 
@@ -57,8 +58,8 @@ jobs:
         run: terraform apply -auto-approve
         continue-on-error: false
   
-  tf-aws-cloud-resume-challenge-destroy:
-    name: 'tf-aws-cloud-resume-challenge-destroy'
+  tf-wordpress-destroy:
+    name: 'tf-wordpress-destroy'
     runs-on: ubuntu-latest
     if: inputs.action_type == 'destroy'
     steps:
