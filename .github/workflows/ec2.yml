@@ -29,8 +29,12 @@ jobs:
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Create Key Pair
+        uses: aws ec2 create-key-pair — key-name TFkey
 
-      - uses: hashicorp/setup-terraform@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
       - name: Terraform fmt
         id: fmt
