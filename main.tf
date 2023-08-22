@@ -7,7 +7,7 @@ resource "aws_security_group" "wordpress-security-group" {
         description = "allow ssh"
         from_port = 22
         to_port = 22
-        protocol = "ssh"
+        protocol = "tcp"
         }
     ingress {
         cidr_blocks = [ "0.0.0.0/0" ]
@@ -34,7 +34,7 @@ resource "aws_eip" "wp-public-ip" {
 
 # Start an EC2 Instance to host the site
 resource "aws_instance" "wordpress-instance" {
-    ami = "ami-010aff33ed5991201"
+    ami = "ami-080785a633a551d87"
     instance_type = "t2.micro"
     key_name = "wp-key"
     security_groups = [ "wordpress-security-group" ]
