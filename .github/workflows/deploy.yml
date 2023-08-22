@@ -1,9 +1,7 @@
 name: Wordpress Deploy via GH Actions
 
 on:
-  push:
-    branches:
-        - main
+  workflow_dispatch:
     
 jobs:
   wordpress-deploy:
