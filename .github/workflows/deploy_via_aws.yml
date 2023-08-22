@@ -29,8 +29,16 @@ jobs:
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      
-      - name: Create Key Pair
+
+      - name: Check If Key exists
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: '*.pem'
+  
+        # Create the key pair if a pem file is not existent
+      - name: Create Key Pair if Not
+        if: steps.check_files.outputs.files_exists != 'true'
         run: aws ec2 create-key-pair --key-name wp-key
 
       - name: Setup Terraform
