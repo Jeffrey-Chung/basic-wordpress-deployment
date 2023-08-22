@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out this repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Create and Add Wordpress DB Password
         run: |
