@@ -31,7 +31,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       
       - name: Create Key Pair
-        run: aws ec2 create-key-pair --key-name TFkey
+        run: aws ec2 create-key-pair --key-name wp-key
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
