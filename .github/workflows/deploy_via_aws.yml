@@ -30,6 +30,8 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - run: ls
+
       - name: Check If Key exists
         id: check_files
         uses: andstor/file-existence-action@v2
