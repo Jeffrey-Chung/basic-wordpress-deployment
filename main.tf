@@ -52,7 +52,7 @@ resource "null_resource" "setup-wordpress" {
   connection {
     type        = "ssh"
     user        = "ec2-user"
-    private_key = file("wp-key.pem")
+    private_key = file("${path.module}/wp-key.pem")
     host        = aws_instance.wordpress-instance.public_ip
   }
   provisioner "remote-exec" {
