@@ -61,12 +61,12 @@ resource "aws_instance" "wordpress-instance" {
       "sudo usermod -a -G docker ec2-user",
       "sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
-      "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
       "sudo docker-compose version",
       "git clone https://github.com/Jeffrey-Chung/basic-wordpress-deployment",
       "cd basic-wordpress-deployment/",
+      "touch db_password.txt",
       "echo $RANDOM > db_password.txt",
-      "sudo docker-compose up"
+      "sudo docker-compose up -d"
     ]
     connection {
       type        = "ssh"
