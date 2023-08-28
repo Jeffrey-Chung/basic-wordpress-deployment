@@ -38,23 +38,7 @@ resource "aws_instance" "wordpress-instance" {
   instance_type   = var.instance_type
   key_name        = "wp-key"
   security_groups = [var.security_group_name]
-}
 
-# Outputs the IP to access the site
-output "WebServerIP" {
-  value       = aws_instance.wordpress-instance.public_ip
-  description = "Web Server IP Address"
-}
-
-# Runs the Wordpress site via Docker Compose
-# Installs Git, Docker and Docker Compose 
-resource "null_resource" "setup-wordpress" {
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = file("${path.module}/wp-key.pem")
-    host        = aws_instance.wordpress-instance.public_ip
-  }
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
@@ -70,5 +54,24 @@ resource "null_resource" "setup-wordpress" {
       "echo $RANDOM > db_password.txt",
       "sudo docker-compose up -d"
     ]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("${path.module}/wp-key.pem")
+      host        = aws_instance.wordpress-instance.public_ip
+    }
   }
+}
+
+# Outputs the IP to access the site
+output "WebServerIP" {
+  value       = aws_instance.wordpress-instance.public_ip
+  description = "Web Server IP Address"
+}
+
+# Runs the Wordpress site via Docker Compose
+# Installs Git, Docker and Docker Compose 
+resource "null_resource" "setup-wordpress" {
+
+
 }
