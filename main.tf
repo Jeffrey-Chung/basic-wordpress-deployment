@@ -33,6 +33,8 @@ resource "aws_eip" "wp-public-ip" {
 }
 
 # Start an EC2 Instance to host the site
+# Runs the Wordpress site via Docker Compose
+# Installs Git, Docker and Docker Compose 
 resource "aws_instance" "wordpress-instance" {
   ami             = var.ami
   instance_type   = var.instance_type
@@ -69,9 +71,3 @@ output "WebServerIP" {
   description = "Web Server IP Address"
 }
 
-# Runs the Wordpress site via Docker Compose
-# Installs Git, Docker and Docker Compose 
-resource "null_resource" "setup-wordpress" {
-
-
-}
