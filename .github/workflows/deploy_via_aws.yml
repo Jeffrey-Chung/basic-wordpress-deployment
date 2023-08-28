@@ -16,7 +16,7 @@ permissions:
    contents: read
 
 jobs:
-  tf-wordpress-deploy:
+  tf-wordpress-deploy-first-time:
     name: 'tf-wordpress-deploy'
     runs-on: ubuntu-latest
     if: inputs.action_type == 'build'
@@ -30,18 +30,9 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - run: ls
-
-      - name: Check If Key exists
-        id: check_files
-        uses: andstor/file-existence-action@v2
-        with:
-          files: 'wp-key.pem'
-
-  
-        # Create the key pair if a pem file is not existent
-      - name: Create Key Pair if Not
-        if: steps.check_files.outputs.files_exists == 'false'
+        # Create the key pair for the first time
+        # Comment out this step if you're running this job after the first time
+      - name: Create Key Pair
         run: aws ec2 create-key-pair --key-name wp-key
 
       - name: Setup Terraform
@@ -83,6 +74,9 @@ jobs:
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Delete Key Pair
+        run: aws ec2 delete-key-pair --key-name wp-key
 
       - uses: hashicorp/setup-terraform@v2
 
