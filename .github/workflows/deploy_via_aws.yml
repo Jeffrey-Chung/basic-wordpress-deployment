@@ -25,13 +25,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-        # Create the key pair for the first time
-        # Comment out this step if you're running this job after the first time
       - name: Create Key Pair
         run: aws ec2 create-key-pair --key-name wp-key --query 'KeyMaterial' --output text > wp-key.pem
   
@@ -60,6 +58,10 @@ jobs:
         id: apply
         run: terraform apply -auto-approve
         continue-on-error: false
+      
+      - name: Delete Key Pair
+        if: success()|| failure()
+        run: aws ec2 delete-key-pair --key-name wp-key
   
   tf-wordpress-destroy:
     name: 'tf-wordpress-destroy'
@@ -70,10 +72,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Create Key Pair
+        run: aws ec2 create-key-pair --key-name wp-key --query 'KeyMaterial' --output text > wp-key.pem
 
       - uses: hashicorp/setup-terraform@v2
 
@@ -92,5 +97,6 @@ jobs:
         continue-on-error: false
       
       - name: Delete Key Pair
+        if: success()|| failure()
         run: aws ec2 delete-key-pair --key-name wp-key
 
