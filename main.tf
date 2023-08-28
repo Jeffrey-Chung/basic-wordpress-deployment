@@ -61,7 +61,7 @@ resource "aws_instance" "wordpress-instance" {
       type        = "ssh"
       user        = "ec2-user"
       private_key = file("${path.module}/wp-key.pem")
-      host        = aws_instance.wordpress-instance.public_ip
+      host        = self.public_ip
     }
   }
 }
