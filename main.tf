@@ -9,7 +9,7 @@ resource "aws_security_group" "wordpress-security-group" {
     to_port     = 22
     protocol    = "tcp"
   }
-  
+
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
     description = "allow http"
@@ -21,8 +21,8 @@ resource "aws_security_group" "wordpress-security-group" {
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
     description = "allow http"
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 8085
+    to_port     = 8085
     protocol    = "tcp"
   }
 
@@ -61,11 +61,12 @@ resource "aws_instance" "wordpress-instance" {
       "sudo usermod -a -G docker ec2-user",
       "sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
+      "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
       "sudo docker-compose version",
       "git clone https://github.com/Jeffrey-Chung/basic-wordpress-deployment",
       "cd basic-wordpress-deployment/",
       "echo $RANDOM > db_password.txt",
-      "sudo docker-compose up -d"
+      "sudo docker-compose up"
     ]
     connection {
       type        = "ssh"
