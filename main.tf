@@ -9,6 +9,7 @@ resource "aws_security_group" "wordpress-security-group" {
     to_port     = 22
     protocol    = "tcp"
   }
+  
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
     description = "allow http"
@@ -16,6 +17,15 @@ resource "aws_security_group" "wordpress-security-group" {
     to_port     = 80
     protocol    = "tcp"
   }
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "allow http"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+  }
+
   # Outbound Rule
   egress {
     cidr_blocks = ["0.0.0.0/0"]
