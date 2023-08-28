@@ -53,6 +53,7 @@ resource "aws_instance" "wordpress-instance" {
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo docker-compose version",
       "git clone https://github.com/Jeffrey-Chung/basic-wordpress-deployment",
+      "cd basic-wordpress-deployment/",
       "echo $RANDOM > db_password.txt",
       "sudo docker-compose up -d"
     ]
