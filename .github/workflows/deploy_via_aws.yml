@@ -33,7 +33,7 @@ jobs:
         # Create the key pair for the first time
         # Comment out this step if you're running this job after the first time
       - name: Create Key Pair
-        run: aws ec2 create-key-pair --key-name wp-key --output text > wp-key.pem
+        run: aws ec2 create-key-pair --key-name wp-key --query 'KeyMaterial' --output text | out-file -encoding ascii -filepath wp-key.pem
       
       - run: ls
 
@@ -77,9 +77,6 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Delete Key Pair
-        run: aws ec2 delete-key-pair --key-name wp-key
-
       - uses: hashicorp/setup-terraform@v2
 
       - name: Terraform init
@@ -95,4 +92,7 @@ jobs:
         id: destroy
         run: terraform destroy -auto-approve
         continue-on-error: false
+      
+      - name: Delete Key Pair
+        run: aws ec2 delete-key-pair --key-name wp-key
 
