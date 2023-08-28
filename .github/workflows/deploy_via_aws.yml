@@ -33,9 +33,7 @@ jobs:
         # Create the key pair for the first time
         # Comment out this step if you're running this job after the first time
       - name: Create Key Pair
-        run: aws ec2 create-key-pair \
-          --key-name wp-key \
-          --output text > wp-key.pem
+        run: aws ec2 create-key-pair --key-name wp-key --output text > wp-key.pem
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
