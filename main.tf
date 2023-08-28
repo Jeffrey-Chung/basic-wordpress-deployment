@@ -1,6 +1,6 @@
 # Security Group to allow traffic to and from the Internet (i.e. install and download packages)
 resource "aws_security_group" "wordpress-security-group" {
-  name = "wordpress-security-group"
+  name = var.security_group_name
   # Inbound Rules
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
@@ -34,10 +34,10 @@ resource "aws_eip" "wp-public-ip" {
 
 # Start an EC2 Instance to host the site
 resource "aws_instance" "wordpress-instance" {
-  ami             = "ami-080785a633a551d87"
-  instance_type   = "t2.micro"
+  ami             = var.ami
+  instance_type   = var.instance_type
   key_name        = "wp-key"
-  security_groups = ["wordpress-security-group"]
+  security_groups = [var.security_group_name]
 }
 
 # Outputs the IP to access the site
