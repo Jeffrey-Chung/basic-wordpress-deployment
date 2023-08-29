@@ -37,10 +37,10 @@ resource "aws_security_group" "wordpress-security-group" {
 }
 
 # Assign public IP via Elastic IP to access the site
-resource "aws_eip" "wp-public-ip" {
-  instance = aws_instance.wordpress-instance.id
-  vpc      = true
-}
+# resource "aws_eip" "wp-public-ip" {
+#   instance = aws_instance.wordpress-instance.id
+#   vpc      = true
+# }
 
 # Start an EC2 Instance to host the site
 # Runs the Wordpress site via Docker Compose
@@ -72,14 +72,14 @@ resource "aws_instance" "wordpress-instance" {
       type        = "ssh"
       user        = "ec2-user"
       private_key = file("${path.module}/wp-key.pem")
-      host        = aws_instance.wordpress-instance.public_ip
+      host        = self.public_ip
     }
   }
 }
 
 # Outputs the IP to access the site
 output "WebServerIP" {
-  value       = aws_instance.wordpress-instance.public_ip
+  value       = self.public_ip
   description = "Web Server IP Address"
 }
 
