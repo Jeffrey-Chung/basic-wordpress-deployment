@@ -79,7 +79,7 @@ resource "aws_instance" "wordpress-instance" {
 
 # Outputs the IP to access the site
 output "WebServerIP" {
-  value       = self.public_ip
+  value       = aws_instance.wordpress-instance.public_ip
   description = "Web Server IP Address"
 }
 
