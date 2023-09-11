@@ -10,7 +10,7 @@ This is also deployed via an EC2 instance on AWS via Terraform and OIDC Identity
 
 Command to spin up containers: `docker-compose up -d`
 
-Link of website: `http://localhost:8085/`
+Link of Website via local Docker-Compose: `http://localhost:8085/`
 
 Command to disable containers: `docker-compose down`
 
@@ -19,6 +19,12 @@ Command to disable containers: `docker-compose down`
 Go to <b>Actions -> Deployment - terraform apply</b> to run via workflow dispatch. 
 
 Type either `Build` to create the infrastructure or `Destroy` to destroy it.
+
+<h1>How to Access Site via EC2</h1>
+
+Once ran `Build` on GitHub Actions, scroll right down to the <b>Terraform Apply</b> step and then scroll through the logs until it gets to <b>Outputs</b> section. There you will see the IP address of the EC2 instance assigned to the `WebServerIP` variable. Replace the `localhost` of the old link to access the website.
+
+Link of Website via EC2: `http://<WebServerIP>:8085/`
 
 <h1>Health Check</h1>
 
